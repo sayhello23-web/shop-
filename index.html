@@ -1,1 +1,322 @@
-index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Mazha</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/jsx/jsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/php/php.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/searchcursor.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/xml-fold.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchtags.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <div class="topbar">
+    <div class="logo">
+      <span class="bite">
+        <svg viewBox="0 0 24 24"><path fill="#ffb648" d="M12 3c4.4 0 8 3.4 8 8.4 0 5-4 9.1-8 9.6-4-.5-8-4.6-8-9.6C4 6.4 7.6 3 12 3z"/><path fill="#121017" d="M17.5 6.2c1 .6 1.7 1.6 1.9 2.8-1.7.5-3.4-.2-4.1-1.7-.5-1 0-2.3 1-2.7.5-.2 1 0 1.2.4z"/></svg>
+      </span>
+      Code<b>Mazha</b>
+    </div>
+
+    <div class="lang-tabs" id="langTabs"></div>
+
+    <div class="actions">
+      <button class="ibtn" id="btnFullscreen" title="Fullscreen editor or preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <span class="lbl">Fullscreen</span>
+      </button>
+      <button class="ibtn" id="btnDevices" title="Preview on multiple devices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="14" height="10" rx="1"/><path d="M6 18h6"/><rect x="18" y="14" width="4" height="7" rx="1"/></svg>
+        <span class="lbl">Devices</span>
+      </button>
+      <button class="ibtn" id="btnKeyboard" title="Own keyboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/></svg>
+        <span class="lbl">Keyboard</span>
+      </button>
+      <button class="ibtn" id="btnHelper" title="Helper: tags & how-to tutorials">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
+        <span class="lbl">Helper</span>
+      </button>
+      <button class="ibtn" id="btnFloat" title="Symbol & tag helper">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M9 21h6"/><path d="M12 17v4"/></svg>
+        <span class="lbl">Symbols</span>
+      </button>
+      <button class="ibtn" id="btnLibrary" title="Toggle library">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span class="lbl">Library</span>
+      </button>
+      <button class="ibtn" id="btnUpload" title="Upload / import file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        <span class="lbl">Upload</span>
+      </button>
+      <input type="file" id="fileInput" accept=".html,.css,.js,.json,.py,.txt,.jsx,.cpp,.c,.zip,.pdf,.doc,.docx">
+      <button class="ibtn" id="btnDownload" title="Download / export">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        <span class="lbl">Export</span>
+      </button>
+      <button class="ibtn" id="btnOpenGoogle" title="Open Google">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        <span class="lbl">Google</span>
+      </button>
+      <button class="ibtn" id="btnShare" title="Share code (copies a link-ready snippet)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+        <span class="lbl">Share</span>
+      </button>
+      <button class="ibtn" id="btnClear" title="Select all + delete">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+        <span class="lbl">Clear</span>
+      </button>
+      <button class="ibtn" id="btnDiag" title="Find bugs & errors">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="6" width="8" height="12" rx="4"/><path d="M8 10H4M8 14H4M16 10h4M16 14h4M9 4l1.5 2M15 4l-1.5 2M12 6V4"/></svg>
+        <span class="lbl">Diagnostics</span>
+        <span id="diagBadge" style="display:none;background:var(--red);color:#fff;border-radius:999px;font-size:9px;padding:1px 5px;margin-left:2px;"></span>
+      </button>
+      <button class="ibtn" id="btnConsole" title="Console output (console.log)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>
+        <span class="lbl">Console</span>
+        <span id="consoleBadge" style="display:none;background:var(--teal);color:#04201c;border-radius:999px;font-size:9px;padding:1px 5px;margin-left:2px;"></span>
+      </button>
+      <button class="ibtn primary" id="btnSave" title="Save project">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+        <span class="lbl">Save</span>
+      </button>
+      <button class="ibtn" id="btnRefresh" title="Refresh preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <span class="lbl">Refresh</span>
+      </button>
+      <button class="ibtn" id="btnSettings" title="Project settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span class="lbl">Settings</span>
+      </button>
+      <button class="ibtn" id="btnQuickNewFile" title="New File">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 12v6M9 15h6"/></svg>
+        <span class="lbl">New File</span>
+      </button>
+      <button class="ibtn" id="btnQuickNewFolder" title="New Folder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><path d="M12 11v4M10 13h4"/></svg>
+        <span class="lbl">New Folder</span>
+      </button>
+      <button class="ibtn" id="btnMyProjects" title="My Projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span class="lbl">My Projects</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="body-row">
+    <div class="sidebar collapsed" id="sidebar">
+      <div class="sidebar-head">Explorer <span id="closeLib" style="cursor:pointer;">✕</span></div>
+      <div class="side-tabs">
+        <button class="side-tab active" data-side="explorer">Files</button>
+        <button class="side-tab" data-side="library">Snippets</button>
+        <button class="side-tab" data-side="learn">Learn</button>
+        <button class="side-tab" data-side="online">Online</button>
+      </div>
+
+      <div id="explorerPanel">
+        <div class="exp-actions">
+          <button class="exp-btn" id="btnNewFile">+ File</button>
+          <button class="exp-btn" id="btnNewFolder">+ Folder</button>
+        </div>
+        <div class="lib-list" id="explorerList"></div>
+        <div class="exp-section-title">Attachments</div>
+        <div class="lib-list" id="attachList"></div>
+      </div>
+
+      <div id="libraryPanel" style="display:none;">
+        <div class="exp-actions">
+          <button class="exp-btn" id="btnAddCustomSnippet">+ Add your own snippet</button>
+        </div>
+        <input class="lib-search" id="libSearch" placeholder="Search functions & tags…">
+        <div class="lib-list" id="libList"></div>
+      </div>
+
+      <div id="learnPanel" style="display:none;"></div>
+      <div id="onlinePanel" style="display:none;flex-direction:column;min-height:0;flex:1;"></div>
+    </div>
+
+    <div class="work" id="workArea">
+      <div class="pane">
+        <div class="pane-head" id="editorPaneHead">
+          <span id="editorLabel">index.html</span>
+          <span class="status" id="editorStatus"></span>
+          <span class="fs-exit-hint">✕ tap to exit fullscreen</span>
+        </div>
+        <div class="editor-wrap"><textarea id="editorArea"></textarea></div>
+      </div>
+      <div class="pane" id="previewPane">
+        <div class="pane-head" id="previewPaneHead">
+          Live Preview
+          <span class="status" id="previewStatus">● live</span>
+          <span id="previewRefreshBtn" title="Refresh this preview" style="margin-left:auto;cursor:pointer;padding:2px 6px;">🔄</span>
+          <span class="fs-exit-hint">✕ tap to exit fullscreen</span>
+        </div>
+        <iframe id="preview-frame" sandbox="allow-scripts allow-modals"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="ownKeyboard"></div>
+
+  <div class="statusbar">
+    <div class="save-state"><span class="save-dot" id="saveDot"></span><span id="saveText">All changes saved</span></div>
+    <div id="netState">● offline-ready</div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<div class="modal-backdrop" id="genericBackdrop">
+  <div class="modal" id="genericModal">
+    <div class="modal-head"><span id="genericTitle">Confirm</span><span class="modal-close" id="genericClose">✕</span></div>
+    <div class="modal-body">
+      <p id="genericMessage" style="margin:0;font-size:13px;line-height:1.5;color:#c9c1d6;white-space:pre-line;"></p>
+      <input type="text" id="genericInput" style="display:none;width:100%;padding:8px 10px;background:var(--panel-2);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:13px;">
+      <div style="display:flex;gap:8px;">
+        <button class="exp-btn" id="genericCancel" style="flex:1;">Cancel</button>
+        <button class="ibtn primary" id="genericOk" style="flex:1;justify-content:center;">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="diagBackdrop">
+  <div class="modal" style="width:min(380px,92vw);">
+    <div class="modal-head">Diagnostics <span class="modal-close" id="diagClose">✕</span></div>
+    <div class="modal-body">
+      <div id="diagList" class="diag-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="consoleBackdrop">
+  <div class="modal" style="width:min(400px,94vw);max-height:80vh;">
+    <div class="modal-head">Console <span class="modal-close" id="consoleClose">✕</span></div>
+    <div class="modal-body" style="padding:0;max-height:65vh;">
+      <div style="display:flex;justify-content:flex-end;padding:8px 10px;border-bottom:1px solid var(--border);">
+        <button class="exp-btn" id="btnClearConsole" style="flex:none;padding:5px 12px;">🗑 Clear</button>
+      </div>
+      <div id="consoleList" class="console-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="fsBackdrop">
+  <div class="modal" style="width:min(280px,88vw);">
+    <div class="modal-head">View Fullscreen <span class="modal-close" id="fsClose">✕</span></div>
+    <div class="modal-body">
+      <button class="exp-btn" id="fsPickEditor" style="padding:12px;font-size:13px;">📝 Written Pad (Editor)</button>
+      <button class="exp-btn" id="fsPickPreview" style="padding:12px;font-size:13px;">🖥 Live Preview</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="deviceBackdrop">
+  <div class="modal" id="deviceModal" style="width:min(420px,94vw);">
+    <div class="modal-head"><span id="deviceTitle">Preview on Devices</span><span class="modal-close" id="deviceClose">✕</span></div>
+    <div class="modal-body">
+      <div id="devicePicker" class="learn-chips" style="padding:0;border:none;flex-wrap:wrap;"></div>
+      <div id="deviceFrameWrap" style="display:flex;flex-direction:column;justify-content:flex-start;align-items:center;overflow:auto;max-height:60vh;padding:10px 0;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="myProjectsBackdrop">
+  <div class="modal" style="width:min(360px,92vw);max-height:80vh;">
+    <div class="modal-head">My Projects <span class="modal-close" id="myProjectsClose">✕</span></div>
+    <div class="modal-body" style="max-height:65vh;overflow-y:auto;">
+      <button class="exp-btn" id="btnSaveAsNewProject" style="margin-bottom:8px;">+ Save Current As New Project</button>
+      <div id="myProjectsList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="clipboardBackdrop">
+  <div class="modal" style="width:min(360px,92vw);max-height:80vh;">
+    <div class="modal-head">Clipboard <span class="modal-close" id="clipboardClose">✕</span></div>
+    <div class="modal-body" id="clipboardBody" style="max-height:65vh;overflow-y:auto;"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="helperBackdrop">
+  <div class="modal" style="width:min(360px,92vw);max-height:80vh;">
+    <div class="modal-head"><span id="helperTitle">Helper</span><span class="modal-close" id="helperClose">✕</span></div>
+    <div class="modal-body" id="helperBody" style="max-height:65vh;overflow-y:auto;"></div>
+  </div>
+</div>
+
+<div id="floatWin">
+  <div class="float-head" id="floatHead">
+    <div class="float-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l4-4 4 4M5 15l4 4 4-4"/></svg>
+      DRAG · Symbol &amp; Tag Helper
+    </div>
+    <span class="float-close" id="floatClose">✕</span>
+  </div>
+  <div class="float-tabs">
+    <button class="float-tab active" data-tab="sym">A · Symbols</button>
+    <button class="float-tab" data-tab="tag">B · Tags</button>
+    <button class="float-tab" data-tab="keys">D · Keys</button>
+  </div>
+  <div class="float-body" id="floatBody"></div>
+</div>
+
+<div class="modal-backdrop" id="settingsBackdrop">
+  <div class="modal">
+    <div class="modal-head">Project Settings <span class="modal-close" id="settingsClose">✕</span></div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Project name</label>
+        <input type="text" id="projName" placeholder="My Code Mazha Project">
+      </div>
+      <div class="field">
+        <label>Editor font size (<span id="fontSizeVal">13</span>px)</label>
+        <input type="range" id="fontSize" min="11" max="20" value="13">
+      </div>
+      <div class="field">
+        <label>Keyboard Shortcuts (with a physical/bluetooth keyboard)</label>
+        <div class="shortcut-list">
+          <div class="shortcut-row"><kbd>Ctrl+S</kbd><span>Save project</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+C / X / V</kbd><span>Copy / Cut / Paste</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+A</kbd><span>Select All</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+F</kbd><span>Find</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+H</kbd><span>Replace All</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+G</kbd><span>Go to Line</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+Shift+G</kbd><span>Jump to Matching Tag / Bracket</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+/</kbd><span>Toggle Line Comment</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+L</kbd><span>Select Current Line</span></div>
+          <div class="shortcut-row"><kbd>Alt+↑ / ↓</kbd><span>Move Line Up / Down</span></div>
+          <div class="shortcut-row"><kbd>Shift+Alt+↑ / ↓</kbd><span>Copy Line Up / Down</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+] / [</kbd><span>Indent / Outdent Line</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+N</kbd><span>New File</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+Shift+N</kbd><span>New Folder</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+B</kbd><span>Toggle Sidebar</span></div>
+          <div class="shortcut-row"><kbd>Ctrl+Shift+E</kbd><span>Open Explorer</span></div>
+          <div class="shortcut-row"><kbd>Alt+Shift+F</kbd><span>Toggle Editor Fullscreen</span></div>
+          <div class="shortcut-row"><kbd>Alt+G</kbd><span>Toggle Editor Mini Screen</span></div>
+          <div class="shortcut-row"><kbd>Alt+Z</kbd><span>Mini On-Screen Keyboard</span></di
